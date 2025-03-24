@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -80,9 +80,10 @@ namespace Lab_7
             }
             public void Jump(int distance, int[] marks, int target)
             {
-                if (marks == null || marks.Length != 5 || distance < 0 || _marks == null) return;
+                if (marks == null || marks.Length != 5 || distance < 0 || _marks == null||target<0) return;
                 _distance = distance;
-                Array.Copy(marks, _marks, _marks.Length);
+                _target=target;
+                Array.Copy(marks, _marks, marks.Length);
 
             }
             public static void Sort(Participant[] array)
