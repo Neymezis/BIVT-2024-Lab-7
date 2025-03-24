@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -37,6 +37,24 @@ namespace Lab_7
                 Console.Write(_name + " ");
                 Console.Write(_surname + " ");
                 Console.WriteLine(_time);
+            }
+            public static void Sort(Sportsman[] array)
+            {
+                if (array == null || array.Length == 0) return;
+                for (int i = 1; i < array.Length;)
+                {
+                    if (i == 0 || array[i].Time >= array[i - 1].Time)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        Sportsman temp = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = temp;
+                        i--;
+                    }
+                }
             }
         }
         public class Group
@@ -134,24 +152,7 @@ namespace Lab_7
                     sportsman.Print();
                 }
             }
-            public static void Sort(Sportsman[] array)
-            {
-                if (array == null || array.Length == 0) return;
-                for(int i=1; i<array.Length;)
-                {
-                    if (i == 0 || array[i].Time > array[i - 1].Time)
-                    {
-                        i++;
-                    }
-                    else
-                    {
-                        Sportsman temp= array[i];
-                        array[i]= array[i - 1];
-                        array[i-1]= temp;
-                        i--;
-                    }
-                }
-            }
+            
             public void Split(out Sportsman[] men, out Sportsman[] women)
             {
                 men = null;
@@ -177,7 +178,7 @@ namespace Lab_7
             public void Shuffle()
             {
                 if(_sportsmen == null||_sportsmen.Length==0) return;
-                Sort(_sportsmen);
+                Sort();
                 Split(out Sportsman[] men, out Sportsman[] women);
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
                 for(int i = 0; i < sportsman.Length; i++)
@@ -187,7 +188,7 @@ namespace Lab_7
                 int r1 = 0;
                 int r2 = 0;
                 int k1=men.Length;
-                int k2=women.Length;
+               
                 
                 
                 for(int i=0;i<2*k1 ; i += 2)
