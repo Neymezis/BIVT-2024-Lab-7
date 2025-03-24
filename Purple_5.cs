@@ -1,9 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using static Lab_7.Purple_4;
+using static Lab_7.Purple_5;
 
 namespace Lab_7
 {
@@ -202,9 +204,10 @@ namespace Lab_7
             }
             public Research MakeResearch()
             {
-                string name = $"No_{_number}_{DateTime.Now.ToString("MM/yy")}";
-                Console.WriteLine(name);
+                
+                string name = $"No_{_number}_{DateTime.Now.Month:d2}/{DateTime.Now.Year:d2}";
                 Research research = new Research(name);
+                if (_research == null) return research;
                 Array.Resize(ref _research, _research.Length + 1);
                 _research[_research.Length - 1] = research;
                 _number++;
@@ -212,9 +215,77 @@ namespace Lab_7
             }
             public (string, double)[] GetGeneralReport(int question)
             {
-                if (_research == null || question < 1 || question > 3) return null;
+                if (question < 1 || question > 3 || _research == null) return null;
+                string [] correct = new string[0];
+                int k = 0;
+                for(int i=0;i < _research.Length;i++)
+                {
+                    for(int j = 0; j < _research[i].Responses.Length; j++)
+                    {
+                        string a1 = Geta1(_research[i].Responses[j],question);
+                        if (a1 != "" && a1 != null)                         
+                        {
+                            correct[k] = a1;
+                            k++;
+                        }
+                    }
+                }
 
+                string[] one =new string[correct.Length];
+                one[0] = correct[0];
+
+                for (int i = 1, n = 1; i < correct.Length; i++)
+                {
+
+                    for (int j = 0; j < k; j++)
+                    {
+
+                        if (correct[i] == one[j])
+                        {
+                            Array.Resize(ref one, one.Length - 1);
+                            j = n;
+                        }
+                        else if (j == n - 1)
+                        {
+                            one[n] = correct[i];
+                            n++;
+                            break;
+                        }
+
+                    }
+                }
+                int[] mas = new int[one.Length];
+                for (int i = 0; i < one.Length; i++)
+                {
+                    mas[i] = correct.Count(x => x == one[i]);
+                }
+                int sum = correct.Length;
+                (string, double)[] answer = new (string, double)[one.Length];
+                for(int i=0;i < answer.Length; i++)
+                {
+                    answer[i] = (one[i], (mas[i]/sum)*100);
+                }
+                return answer;
             }
+            private string Geta1(Response a, int question)
+            {
+                string a1;
+                switch (question)
+                {
+                    case 1:
+                        a1 = a.Animal;
+                        return a1;
+                    case 2:
+                        a1 = a.CharacterTrait;
+                        return a1;
+                    case 3:
+                        a1 = a.Concept;
+                        return a1;
+                    default:
+                        return null;
+                }
+            }
+
         }
 
     }
