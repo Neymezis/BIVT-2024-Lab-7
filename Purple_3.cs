@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Linq;
 
 namespace Lab_7
 {
@@ -283,7 +284,7 @@ namespace Lab_7
                 int k = -1;
                 for (int i = 0; i < _participants.Length; i++)
                 {
-                    if (_participants[i].Score == 0 && (_participants[i].Places != null && _participants[i].Places.Length != 0))
+                    if (_participants[i].Marks.All(x => x==0) && (_participants[i].Places != null && _participants[i].Places.Length != 0))
                     {
                         k = i;
                         break;
