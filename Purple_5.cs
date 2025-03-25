@@ -205,7 +205,7 @@ namespace Lab_7
             public Research MakeResearch()
             {
                 
-                string name = $"No_{_number}_{DateTime.Now.Month:d2}/{DateTime.Now.Year:d2}";
+                string name = $"No_{_number}_{DateTime.Now.Month:d2}/{DateTime.Now.Year%100}";
                 Research research = new Research(name);
                 if (_research == null) return research;
                 Array.Resize(ref _research, _research.Length + 1);
