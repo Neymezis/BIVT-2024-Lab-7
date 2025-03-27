@@ -86,7 +86,7 @@ namespace Lab_7
             }
             public string[] GetTopResponses(int question)
             {
-                if (_responses == null || question > 3 || question < 1) return null;
+                if (_responses == null || question > 3 || question < 1||_responses.Length==0) return null;
                 string[] kan = new string[_responses.Length];
 
                 for (int i = 0, k = 0; i < _responses.Length; i++)
@@ -152,13 +152,7 @@ namespace Lab_7
                     }
                 }
                 Array.Resize(ref kan1, 5);
-                Array.Resize(ref mas, 5);
-                Console.WriteLine(112);
-                foreach (string x in kan1) Console.WriteLine(x);
-                foreach (int x in mas) Console.WriteLine(x);
-
-
-
+               
                 return kan1;
             }
 
@@ -211,11 +205,12 @@ namespace Lab_7
                 Array.Resize(ref _research, _research.Length + 1);
                 _research[_research.Length - 1] = research;
                 _number++;
+                Console.WriteLine(name);
                 return research;
             }
             public (string, double)[] GetGeneralReport(int question)
             {
-                if (question < 1 || question > 3 || _research == null) return null;
+                if (question < 1 || question > 3 || _research == null||_research.Length==0) return null;
                 string [] correct = new string[0];
                 int k = 0;
                 for(int i=0;i < _research.Length;i++)
@@ -237,7 +232,7 @@ namespace Lab_7
                 for (int i = 1, n = 1; i < correct.Length; i++)
                 {
 
-                    for (int j = 0; j < k; j++)
+                    for (int j = 0; j < n; j++)
                     {
 
                         if (correct[i] == one[j])
