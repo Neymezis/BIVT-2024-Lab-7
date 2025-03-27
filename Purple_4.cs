@@ -111,7 +111,7 @@ namespace Lab_7
             }
             public void Sort()
             {
-                if (_sportsmen == null) return;
+                if (_sportsmen == null||_sportsmen.Length==0) return;
                 for (int i = 1; i < _sportsmen.Length;)
                 {
                     if (i == 0 || _sportsmen[i].Time >= _sportsmen[i - 1].Time)
@@ -180,6 +180,7 @@ namespace Lab_7
                 if(_sportsmen == null||_sportsmen.Length==0) return;
                 Sort();
                 Split(out Sportsman[] men, out Sportsman[] women);
+                if (men == null || women == null || men.Length == 0 || women.Length == 0) return;
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
                 for(int i = 0; i < sportsman.Length; i++)
                 {
@@ -191,9 +192,9 @@ namespace Lab_7
                
                 
                 
-                for(int i=0;i<2*k1 ; i += 2)
+                for(int i=0;i<k1 ; i ++)
                 {
-                    sportsman[i] = men[r1];
+                    sportsman[i*2] = men[r1];
                     r1++;
                 }
                 for(int i = 0; i < sportsman.Length; i++)
