@@ -80,6 +80,7 @@ namespace Lab_7
                 {
                     Array.Copy(coefs, _coefs, coefs.Length);
                 }
+                else return;
             }
             public void Jump(int[] marks)
             {
@@ -98,6 +99,7 @@ namespace Lab_7
                         Sum();
                     }
                 }
+                else return;
             }
             public static void Sort(Participant[] array)
             {
@@ -141,7 +143,7 @@ namespace Lab_7
             public int CreateMark()
             {
                 if(_marks==null || _marks.Length == 0) return 0;
-                if(_nomber==_marks.Length-1) _nomber = 0;
+                if(_nomber==_marks.Length) _nomber = 0;
                 int a = _marks[_nomber];
                 _nomber++;
                 return a;
@@ -170,10 +172,9 @@ namespace Lab_7
             {
                 if (jumper == null || _participants == null) return;
                 int[] marks1 = new int[7];
-                int k = 0;
                 for (int i = 0; i < _judges.Length; i++)
                 {
-                    if (k == 7) break;
+                    if (i >= 7) break;
                     marks1[i] = _judges[i].CreateMark();
                 }
                 jumper.Jump(marks1);
