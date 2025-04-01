@@ -38,7 +38,7 @@ namespace Lab_7
             }
             private int rezult()
             {
-                if (_marks == null) return 0;
+                if (_marks == null||_marks.Length==0) return 0;
                 int sum = 0;
                 int min = int.MaxValue;
                 int max = int.MinValue;
@@ -127,14 +127,15 @@ namespace Lab_7
             }
             public void Add(Participant participant)
             {
-                if (_participants == null) return;
+                if (_participants == null) _participants = new Participant[0];
                 Array.Resize(ref _participants, _participants.Length + 1);
                 _participants[_participants.Length - 1] = participant;
 
             }
             public void Add(Participant[] participant)
             {
-                if (_participants == null || _participants.Length == 0|| participant==null||participant.Length==0) return;
+                if ( participant==null||participant.Length==0) return;
+                if (_participants == null) _participants = new Participant[0];
                 int n = _participants.Length;
                 Array.Resize(ref _participants, _participants.Length + participant.Length);
                 for (int i = 0; i < participant.Length; i++)
@@ -144,7 +145,7 @@ namespace Lab_7
             }
             public void Jump(int distance, int[] marks)
             {
-                if (marks == null || marks.Length == 0) return;
+                if (marks == null || marks.Length == 0||_participants==null||_participants.Length==0) return;
                 int k = -1;
                 for(int i=0; i < _participants.Length; i++)
                 {
