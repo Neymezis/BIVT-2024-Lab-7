@@ -220,12 +220,13 @@ namespace Lab_7
                         string a1 = Geta1(_research[i].Responses[j],question);
                         if (a1 != "" && a1 != null)                         
                         {
+                            Array.Resize(ref correct, correct.Length+1);
                             correct[k] = a1;
                             k++;
                         }
                     }
                 }
-
+                if(correct.Length==0) return null;
                 string[] one =new string[correct.Length];
                 one[0] = correct[0];
 
