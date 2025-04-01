@@ -34,7 +34,10 @@ namespace Lab_7
                 {
                     if (_marks == null) return null;
                     int[,] marks = new int[_marks.GetLength(0), _marks.GetLength(1)];
-                    Array.Copy(_marks, marks, _marks.Length);
+                    for (int i = 0; i < _marks.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < _marks.GetLength(1); j++) marks[i, j] = _marks[i, j];
+                    }
                     return marks;
                 }
             }
@@ -85,9 +88,9 @@ namespace Lab_7
             public void Jump(int[] marks)
             {
 
-                if (marks.Length == 7 && _number < 4 && marks != null && _marks != null && _coefs != null)
+                if (marks.GetLength(1) != 7 || _number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7) return;
 
-                {
+                
                     for (int i = 0; i < marks.Length; i++)
                     {
                         _marks[_number, i] = marks[i];
@@ -98,8 +101,8 @@ namespace Lab_7
                     {
                         Sum();
                     }
-                }
-                else return;
+                
+               
             }
             public static void Sort(Participant[] array)
             {
@@ -143,7 +146,7 @@ namespace Lab_7
             public int CreateMark()
             {
                 if(_marks==null || _marks.Length == 0) return 0;
-                if(_nomber==_marks.Length) _nomber = 0;
+                if(_nomber>=_marks.Length) _nomber = 0;
                 int a = _marks[_nomber];
                 _nomber++;
                 return a;
@@ -170,18 +173,19 @@ namespace Lab_7
             }
             public void Evaluate(Participant jumper)
             {
-                if (jumper == null || _participants == null) return;
+                if (jumper == null || _participants == null||_judges==null|| _judges.Length!=7) return;
                 int[] marks1 = new int[7];
                 for (int i = 0; i < _judges.Length; i++)
                 {
-                    if (i >= 7) break;
+                   
                     marks1[i] = _judges[i].CreateMark();
                 }
                 jumper.Jump(marks1);
             }
             public void Add(Participant jumper)
             {
-                if (jumper == null || _participants == null) return;
+                if (jumper == null) return;
+                if (_participants == null) _participants= new Participant[0];
                 Array.Resize(ref _participants, _participants.Length + 1);
                 Evaluate(jumper);
                 _participants[_participants.Length - 1] = jumper;
@@ -189,7 +193,8 @@ namespace Lab_7
             }
             public void Add(Participant[] jumper)
             {
-                if (jumper == null || _participants == null || jumper.Length == 0) return;
+                if (jumper == null || jumper.Length == 0) return;
+                if (_participants == null) _participants = new Participant[0];
                 for (int i = 0; i < jumper.Length; i++)
                 {
                     Evaluate(jumper[i]);
