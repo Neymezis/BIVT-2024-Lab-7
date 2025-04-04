@@ -62,13 +62,7 @@ namespace Lab_7
             private string _name;
             private Sportsman[] _sportsmen;
             public string Name => _name;
-            public Sportsman[] Sportsmen
-            {
-                get
-                {
-                    return _sportsmen;
-                }
-            }
+            public Sportsman[] Sportsmen => _sportsmen;
             public Group(string name)
             {
                 _name = name;
@@ -86,7 +80,7 @@ namespace Lab_7
             }
             public void Add(Sportsman sportsman)
             {
-                if (_sportsmen == null) return;
+                if (_sportsmen == null||sportsman==null) return;
                 Array.Resize(ref _sportsmen, _sportsmen.Length + 1);
                 _sportsmen[_sportsmen.Length - 1] = sportsman;
 
@@ -94,19 +88,18 @@ namespace Lab_7
             public void Add(Sportsman[] sportsman)
             {
                 if (_sportsmen == null || sportsman.Length == 0 || sportsman == null) return;
-                int k = _sportsmen.Length;
-                Array.Resize(ref _sportsmen, _sportsmen.Length + sportsman.Length);
-                int a = 0;
-                for (int i = k; i < _sportsmen.Length; i++)
+                for (int i = 0; i < sportsman.Length; i++)
                 {
-                    _sportsmen[i] = sportsman[a];
-                    a++;
+                    if (sportsman[i] != null) 
+                    {
+                        Array.Resize(ref _sportsmen,_sportsmen.Length + 1);
+                        _sportsmen[_sportsmen.Length-1] = sportsman[i];
+                    }
                 }
 
             }
             public void Add(Group group)
             {
-                if (_sportsmen == null || group.Sportsmen == null) return;
                 Add(group.Sportsmen);
             }
             public void Sort()
@@ -145,12 +138,7 @@ namespace Lab_7
             }
             public void Print()
             {
-                Console.Write(_name + " ");
-                Console.WriteLine();
-                foreach (var sportsman in _sportsmen)
-                {
-                    sportsman.Print();
-                }
+               
             }
             
             public void Split(out Sportsman[] men, out Sportsman[] women)
