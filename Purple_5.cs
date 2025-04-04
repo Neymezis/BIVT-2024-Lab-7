@@ -210,7 +210,7 @@ namespace Lab_7
             }
             public (string, double)[] GetGeneralReport(int question)
             {
-                if (question < 1 || question > 3 || _research == null||_research.Length==0) return null;
+                if (question < 1 || question > 3 || _research == null) return null;
                 string [] correct = new string[0];
                 int k = 0;
                 for(int i=0;i < _research.Length;i++)
@@ -226,7 +226,7 @@ namespace Lab_7
                         }
                     }
                 }
-                if(correct.Length==0) return null;
+                if(correct.Length==0) return new (string, double)[0];
                 string[] one =new string[correct.Length];
                 one[0] = correct[0];
 
@@ -255,7 +255,7 @@ namespace Lab_7
                 {
                     mas[i] = correct.Count(x => x == one[i]);
                 }
-                int sum = correct.Length;
+                double sum = correct.Length;
                 (string, double)[] answer = new (string, double)[one.Length];
                 for(int i=0;i < answer.Length; i++)
                 {
