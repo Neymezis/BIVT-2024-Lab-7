@@ -92,14 +92,13 @@ namespace Lab_7
             {
 
                 if (_nomber >= _marks.Length) return;
-                if (_marks == null || _marks.Length == 0 || result < 0 || result > 6) return;
+                if (_marks == null || result < 0 || result > 6) return;
                 _marks[_nomber] = result;
-
                 _nomber++;
             }
             public static void SetPlaces(Participant[] participants)
             {
-                if (participants == null || participants.Length == 0) return;
+                if (participants == null) return;
                 Participant[] participants1 = new Participant[participants.Length];
                 int k = 0;
                 for (int i = 0; i < participants.Length; i++)
@@ -159,7 +158,7 @@ namespace Lab_7
             }
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length == 0) return;
+                if (array == null ) return;
 
                 Participant[] array1 = new Participant[array.Length];
                 int k = 0;
@@ -280,7 +279,7 @@ namespace Lab_7
             }
             public void Evaluate(double[] marks)
             {
-                if (marks == null) return;
+                if (marks == null||_participants==null) return;
                 int k = -1;
                 for (int i = 0; i < _participants.Length; i++)
                 {
@@ -298,14 +297,17 @@ namespace Lab_7
             }
             public void Add(Participant participant)
             {
-                if (_participants == null) return;
+                if (Participants==null) return;
+                if (_participants == null) _participants = new Participant[0];
                 Array.Resize(ref _participants, _participants.Length + 1);
                 _participants[_participants.Length - 1] = participant;
+              
 
             }
             public void Add(Participant[] participant)
             {
-                if (_participants == null || _participants.Length == 0 || participant == null || participant.Length == 0) return;
+                if (participant == null || participant.Length == 0) return;
+                if (_participants == null) _participants = new Participant[0];
                 int n = _participants.Length;
                 Array.Resize(ref _participants, _participants.Length + participant.Length);
                 for (int i = 0; i < participant.Length; i++)
@@ -321,7 +323,7 @@ namespace Lab_7
             {
                 for (int i = 0; i < _moods.Length; i++)
                 {
-                    _moods[i] += (i + 1) / 10;
+                    _moods[i] += (i + 1.0) / 10;
                 }
             }
         }
@@ -332,7 +334,7 @@ namespace Lab_7
             {
                 for(int i=0; i< _moods.Length; i++)
                 {
-                    _moods[i] *= (1 + (1 + i) / 100);
+                    _moods[i] *= (1 + (1.0 + i) / 100);
                 }
             }
         }
