@@ -51,7 +51,7 @@ namespace Lab_7
             }
             private void Sum()
             {
-
+                if(_coefs==null||_marks==null) return;
 
                 for (int i = 0; i < _marks.GetLength(0); i++)
                 {
@@ -79,16 +79,13 @@ namespace Lab_7
             }
             public void SetCriterias(double[] coefs)
             {
-                if (coefs.Length == 4 && coefs != null && _coefs != null)
-                {
-                    Array.Copy(coefs, _coefs, coefs.Length);
-                }
-                else return;
+                if (coefs.Length != 4 || coefs == null || _coefs == null) return; 
+                Array.Copy(coefs, _coefs, coefs.Length);
             }
             public void Jump(int[] marks)
             {
 
-                if (marks.GetLength(1) != 7 || _number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7) return;
+                if (_number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7) return;
 
                 
                     for (int i = 0; i < marks.Length; i++)
@@ -139,9 +136,17 @@ namespace Lab_7
             public string Name => _name;
             public Judge(string name, int[] marks)
             {
+
                 _name = name;
-                Array.Copy(marks,_marks,marks.Length);
                 _nomber = 0;
+                if (marks == null) 
+                {
+                    _marks = null;
+                    return;
+                }
+                
+                Array.Copy(marks,_marks,marks.Length);
+                
             }
             public int CreateMark()
             {
@@ -168,8 +173,14 @@ namespace Lab_7
             public Participant[] Participants => _participants;
             public Competition(Judge[] judges)
             {
-                Array.Copy(judges, _judges, judges.Length);
                 _participants = new Participant[0];
+                if(judges == null)
+                {
+                    _judges = null;
+                    return;
+                }
+                Array.Copy(judges, _judges, judges.Length);
+                
             }
             public void Evaluate(Participant jumper)
             {
