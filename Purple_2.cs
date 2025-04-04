@@ -49,25 +49,13 @@ namespace Lab_7
                     if (max < _marks[i]) max = _marks[i];
                 }
                 sum = sum - min - max;
-                if (_distance > 120) 
-                {
-                    if (_distance>=_target) return (sum+60 + 60 + 2 * (_distance - 120));
-                    return (sum + 60 + 2 * (_distance - 120));
-                }
-               
+                if (_distance > _target) return (sum + 60 + 2 * (_distance - _target));
                 else
                 {
-                    if (_distance >= _target)
-                    {
-                        int n = 60 - 2 * (120 - _distance);
-                        if (n <= 0) return sum+60;
-                        else return (sum + n+60);
-                    }
-                    int m = 60 - 2 * (120 - _distance);
+                    int m = 60 - 2 * (_target - _distance);
                     if (m <= 0) return sum;
                     else return (sum + m);
                 }
-
 
             }
             public Participant(string name, string surname)
@@ -84,6 +72,7 @@ namespace Lab_7
                 _distance = distance;
                 _target=target;
                 Array.Copy(marks, _marks, marks.Length);
+                rezult();
 
             }
             public static void Sort(Participant[] array)
