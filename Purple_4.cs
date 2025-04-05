@@ -41,20 +41,39 @@ namespace Lab_7
             public static void Sort(Sportsman[] array)
             {
                 if (array == null || array.Length == 0) return;
-                for (int i = 1; i < array.Length;)
+                Sportsman[] correct = new Sportsman[0];
+                foreach (Sportsman x in array)
                 {
-                    if (i == 0 || array[i].Time >= array[i - 1].Time)
+                    if (x != null)
+                    {
+                        Array.Resize(ref correct, correct.Length + 1);
+                        correct[correct.Length - 1] = x;
+                    }
+                }
+
+                for (int i = 1; i < correct.Length;)
+                {
+                    if (i == 0 || correct[i].Time >= correct[i - 1].Time)
                     {
                         i++;
                     }
                     else
                     {
-                        Sportsman temp = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = temp;
+                        Sportsman temp = correct[i];
+                        correct[i] = correct[i - 1];
+                        correct[i - 1] = temp;
                         i--;
                     }
                 }
+                foreach (Sportsman x in array)
+                {
+                    if (x == null)
+                    {
+                        Array.Resize(ref correct, correct.Length + 1);
+                        correct[correct.Length - 1] = x;
+                    }
+                }
+                Array.Copy(correct, array, correct.Length);
             }
         }
         public class Group
@@ -105,20 +124,38 @@ namespace Lab_7
             public void Sort()
             {
                 if (_sportsmen == null||_sportsmen.Length==0) return;
-                for (int i = 1; i < _sportsmen.Length;)
+                Sportsman[] correct = new Sportsman[0];
+                foreach(Sportsman x in _sportsmen)
                 {
-                    if (i == 0 || _sportsmen[i].Time >= _sportsmen[i - 1].Time)
+                    if(x!=null)
+                    {
+                        Array.Resize(ref correct,correct.Length+1);
+                        correct[correct.Length - 1] = x;
+                    }
+                }
+                for (int i = 1; i < correct.Length;)
+                {
+                    if (i == 0 || correct[i].Time >= correct[i - 1].Time)
                     {
                         i++;
                     }
                     else
                     {
-                        Sportsman temp1 = _sportsmen[i];
-                        _sportsmen[i] = _sportsmen[i - 1];
-                        _sportsmen[i - 1] = temp1;
+                        Sportsman temp1 = correct[i];
+                        correct[i] = correct[i - 1];
+                        correct[i - 1] = temp1;
                         i--;
                     }
                 }
+                foreach (Sportsman x in _sportsmen)
+                {
+                    if (x == null)
+                    {
+                        Array.Resize(ref correct, correct.Length + 1);
+                        correct[correct.Length - 1] = x;
+                    }
+                }
+                Array.Copy(correct,_sportsmen,correct.Length);
             }
             public static Group Merge(Group group1, Group group2)
             {
@@ -168,7 +205,7 @@ namespace Lab_7
                 if(_sportsmen == null||_sportsmen.Length==0) return;
                 Sort();
                 Split(out Sportsman[] men, out Sportsman[] women);
-                if (men == null || women == null || men.Length == 0 || women.Length == 0) return;
+                if (men == null || women == null) return;
                 Sportsman.Sort(men);
                 Sportsman.Sort(women);
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
