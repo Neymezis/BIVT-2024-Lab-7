@@ -49,14 +49,9 @@ namespace Lab_7
                     if (max < _marks[i]) max = _marks[i];
                 }
                 sum = sum - min - max;
-                if (_distance > _target) return (sum + 60 + 2 * (_distance - _target));
-                else
-                {
-                    int m = 60 - 2 * (_target - _distance);
-                    if (m <= 0) return sum;
-                    else return (sum + m);
-                }
-
+                sum += (60 + (_distance - _target) * 2);
+                if(sum< 0) sum = 0;
+                return sum;
             }
             public Participant(string name, string surname)
             {
@@ -68,16 +63,14 @@ namespace Lab_7
             }
             public void Jump(int distance, int[] marks, int target)
             {
-                if (marks == null || marks.Length != 5 || distance < 0 || _marks == null||target<0) return;
+                if (marks == null || distance < 0 || _marks == null || target < 0) return;
                 _distance = distance;
-                _target=target;
-                Array.Copy(marks, _marks, marks.Length);
-                rezult();
-
+                _target = target;
+                Array.Copy(marks, _marks, _marks.Length);
             }
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length <= 1) return;
+                if (array == null || array.Length ==0) return;
                 for (int i = 1; i < array.Length;)
                 {
                     if (i == 0 || array[i].Result <= array[i - 1].Result)
@@ -116,15 +109,13 @@ namespace Lab_7
             }
             public void Add(Participant participant)
             {
-                if (_participants == null) _participants = new Participant[0];
+                if (_participants == null) return;
                 Array.Resize(ref _participants, _participants.Length + 1);
                 _participants[_participants.Length - 1] = participant;
-
             }
             public void Add(Participant[] participant)
             {
-                if ( participant==null||participant.Length==0) return;
-                if (_participants == null) _participants = new Participant[0];
+                if (_participants == null|| participant ==null||participant.Length==0) return;
                 int n = _participants.Length;
                 Array.Resize(ref _participants, _participants.Length + participant.Length);
                 for (int i = 0; i < participant.Length; i++)
@@ -134,7 +125,7 @@ namespace Lab_7
             }
             public void Jump(int distance, int[] marks)
             {
-                if (marks == null || marks.Length == 0||_participants==null||_participants.Length==0) return;
+                if (marks == null || marks.Length == 0||_participants==null||_participants.Length==0||distance<0) return;
                 int k = -1;
                 for(int i=0; i < _participants.Length; i++)
                 {
