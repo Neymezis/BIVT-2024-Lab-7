@@ -66,7 +66,7 @@ namespace Lab_7
             {
                 get
                 {
-                    if (_marks == null || _marks.Length != 7) return 0;
+                    if (_marks == null || _marks.Length ==0) return 0;
                     double Totalmark = 0;
                     for (int i = 0; i < _marks.Length; i++)
                     {
@@ -91,7 +91,7 @@ namespace Lab_7
             public void Evaluate(double result)
             {
 
-                if (_nomber >= _marks.Length) return;
+                if (_nomber >= 7) return;
                 if (_marks == null || result < 0 || result > 6) return;
                 _marks[_nomber] = result;
                 _nomber++;
