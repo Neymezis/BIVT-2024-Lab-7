@@ -79,13 +79,13 @@ namespace Lab_7
             }
             public void SetCriterias(double[] coefs)
             {
-                if (coefs.Length != 4 || coefs == null || _coefs == null) return; 
+                if (coefs.Length!=4||coefs == null || _coefs == null) return; 
                 Array.Copy(coefs, _coefs, coefs.Length);
             }
             public void Jump(int[] marks)
             {
 
-                if (_number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7) return;
+                if (_number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7||_coefs==null) return;
 
                 
                     for (int i = 0; i < marks.Length; i++)
