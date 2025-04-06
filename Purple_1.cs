@@ -85,7 +85,7 @@ namespace Lab_7
             public void Jump(int[] marks)
             {
 
-                if (_number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7||_coefs==null) return;
+                if (_number >= 4 || marks == null || _marks == null || _marks.GetLength(1) != 7||_coefs==null||marks.Length!=7) return;
 
                 
                     for (int i = 0; i < marks.Length; i++)
@@ -139,6 +139,7 @@ namespace Lab_7
 
                 _name = name;
                 _nomber = 0;
+                _marks = new int[marks.Length];
                 if (marks == null) 
                 {
                     _marks = null;
@@ -174,6 +175,7 @@ namespace Lab_7
             public Competition(Judge[] judges)
             {
                 _participants = new Participant[0];
+                _judges = new Judge[judges.Length];
                 if(judges == null)
                 {
                     _judges = null;
@@ -208,14 +210,12 @@ namespace Lab_7
                 if (_participants == null) _participants = new Participant[0];
                 for (int i = 0; i < jumper.Length; i++)
                 {
+                    if(jumper[i] == null) continue;
                     Evaluate(jumper[i]);
+                    Array.Resize(ref _participants, _participants.Length + 1);
+                    _participants[_participants.Length-1] = jumper[i];
                 }
-                int n = _participants.Length;
-                Array.Resize(ref _participants, _participants.Length + jumper.Length);
-                for (int i = 0; i < jumper.Length; i++)
-                {
-                    _participants[i + n] = jumper[i];
-                }
+                
             }
             public void Sort()
             {
