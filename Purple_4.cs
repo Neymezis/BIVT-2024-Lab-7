@@ -205,7 +205,7 @@ namespace Lab_7
                 if(_sportsmen == null||_sportsmen.Length==0) return;
                 Sort();
                 Split(out Sportsman[] men, out Sportsman[] women);
-                if (men == null || women == null) return;
+                if (men == null || women == null || men.Length == 0 || women.Length == 0) return;
                 Sportsman.Sort(men);
                 Sportsman.Sort(women);
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
