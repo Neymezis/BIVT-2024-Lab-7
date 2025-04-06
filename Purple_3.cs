@@ -98,7 +98,7 @@ namespace Lab_7
             }
             public static void SetPlaces(Participant[] participants)
             {
-                if (participants == null) return;
+                if (participants == null||participants.Length==0) return;
                 Participant[] participants1 = new Participant[participants.Length];
                 int k = 0;
                 for (int i = 0; i < participants.Length; i++)
@@ -279,7 +279,7 @@ namespace Lab_7
             }
             public void Evaluate(double[] marks)
             {
-                if (marks == null||_participants==null) return;
+                if (marks == null||_participants==null||marks.Length!=_moods.Length) return;
                 int k = -1;
                 for (int i = 0; i < _participants.Length; i++)
                 {
