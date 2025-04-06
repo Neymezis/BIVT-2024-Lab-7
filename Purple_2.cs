@@ -38,7 +38,7 @@ namespace Lab_7
             }
             private int rezult()
             {
-                if (_marks == null||_marks.Length==0) return 0;
+                if (_marks == null||_marks.Length==0|| _distance<0||_target<0) return 0;
                 int sum = 0;
                 int min = int.MaxValue;
                 int max = int.MinValue;
@@ -48,6 +48,7 @@ namespace Lab_7
                     if (min > _marks[i]) min = _marks[i];
                     if (max < _marks[i]) max = _marks[i];
                 }
+                if(max==0&&min==0) return 0;
                 sum = sum - min - max;
                 sum += (60 + (_distance - _target) * 2);
                 if(sum< 0) sum = 0;
