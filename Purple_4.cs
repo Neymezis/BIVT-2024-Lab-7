@@ -205,55 +205,21 @@ namespace Lab_7
                 if(_sportsmen == null||_sportsmen.Length==0) return;
                 Sort();
                 Split(out Sportsman[] men, out Sportsman[] women);
-                if (men == null || women == null || men.Length == 0 || women.Length == 0) return;
-                Sportsman.Sort(men);
-                Sportsman.Sort(women);
+                if (men == null || women == null) return;
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
-                for(int i = 0; i < sportsman.Length; i++)
+                int menIndex = 0;
+                int womenIndex = 0;
+                for (int i = 0; i < _sportsmen.Length; i++)
                 {
-                    sportsman[i] = null;
+                    if (menIndex < men.Length && (i % 2 == 0 || womenIndex >= women.Length))
+                    {
+                        _sportsmen[i] = men[menIndex++];
+                    }
+                    else if (womenIndex < women.Length)
+                    {
+                        _sportsmen[i] = women[womenIndex++];
+                    }
                 }
-                int r1 = 0;
-                int r2 = 0;
-                int k1=men.Length;
-                int k2=women.Length;
-                if (k1 <= k2)
-                {
-                    for (int i = 0; i < k1; i++)
-                    {
-                        sportsman[i * 2] = men[r1];
-                        r1++;
-                    }
-                    for (int i = 0; i < sportsman.Length; i++)
-                    {
-                        if (sportsman[i] == null)
-                        {
-                            sportsman[i] = women[r2];
-                            r2++;
-                        }
-                    }
-                    Array.Copy(sportsman, _sportsmen, sportsman.Length);
-                }
-                else
-                {
-                    
-                    for (int i = 0; i < k2; i++)
-                    {
-                        sportsman[i * 2+1] = women[r1];
-                        r1++;
-                    }
-                    for (int i = 0; i < sportsman.Length; i++)
-                    {
-                        if (sportsman[i] == null)
-                        {
-                            sportsman[i] = men[r2];
-                            r2++;
-                        }
-                    }
-                    Array.Copy(sportsman, _sportsmen, sportsman.Length);
-                }
-               
-
             }
         }
         public class SkiMan : Sportsman
