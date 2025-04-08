@@ -209,17 +209,46 @@ namespace Lab_7
                 Sportsman [] sportsman = new Sportsman[_sportsmen.Length];
                 int menIndex = 0;
                 int womenIndex = 0;
-                for (int i = 0; i < _sportsmen.Length; i++)
+                if (men.Length == 0)
                 {
-                    if (menIndex < men.Length && (i % 2 == 0 || womenIndex >= women.Length))
+                    Array.Copy(women, _sportsmen, women.Length);
+                    return;
+                }
+                if (women.Length == 0)
+                {
+                    Array.Copy(men, _sportsmen, men.Length);
+                    return;
+                }
+                if (men[0].Time <= women[0].Time)
+                {
+                    for (int i = 0; i < _sportsmen.Length; i++)
                     {
-                        _sportsmen[i] = men[menIndex++];
-                    }
-                    else if (womenIndex < women.Length)
-                    {
-                        _sportsmen[i] = women[womenIndex++];
+                        if (menIndex < men.Length && (i % 2 == 0 || womenIndex >= women.Length))
+                        {
+                            _sportsmen[i] = men[menIndex++];
+                        }
+                        else if (womenIndex < women.Length)
+                        {
+                            _sportsmen[i] = women[womenIndex++];
+                        }
                     }
                 }
+                else
+                {
+
+                    for (int i = 0; i < _sportsmen.Length; i++)
+                    {
+                        if (womenIndex < women.Length && (i % 2 == 0 || menIndex >= men.Length))
+                        {
+                            _sportsmen[i] = women[womenIndex++];
+                        }
+                        else if (menIndex < men.Length)
+                        {
+                            _sportsmen[i] = men[menIndex++];
+                        }
+                    }
+                }
+                
             }
         }
         public class SkiMan : Sportsman
