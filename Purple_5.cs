@@ -244,7 +244,7 @@ namespace Lab_7
                 (string, double)[] answer = new (string, double)[one.Length];
                 for(int i=0;i < answer.Length; i++)
                 {
-                    answer[i] = (one[i], (mas[i]*100.0/sum);
+                    answer[i] = (one[i], (mas[i]*100.0/sum));
                     Console.WriteLine((mas[i] / sum) * 100);
                 }
               
