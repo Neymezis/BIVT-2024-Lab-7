@@ -151,6 +151,7 @@ namespace Lab_7
                         i--;
                     }
                 }
+                if (kan1.Length <= 5) return kan1;
                 Array.Resize(ref kan1, 5);
                
                 return kan1;
@@ -205,14 +206,12 @@ namespace Lab_7
                 Array.Resize(ref _research, _research.Length + 1);
                 _research[_research.Length - 1] = research;
                 _number++;
-                Console.WriteLine(name);
                 return research;
             }
             public (string, double)[] GetGeneralReport(int question)
             {
                 if (question < 1 || question > 3 || _research == null) return null;
                 string [] correct = new string[0];
-                int k = 0;
                 for(int i=0;i < _research.Length;i++)
                 {
                     for(int j = 0; j < _research[i].Responses.Length; j++)
@@ -221,33 +220,19 @@ namespace Lab_7
                         if (a1 != "" && a1 != null)                         
                         {
                             Array.Resize(ref correct, correct.Length+1);
-                            correct[k] = a1;
-                            k++;
+                            correct[correct.Length-1] = a1;
+                           
                         }
                     }
                 }
-                if(correct.Length==0) return new (string, double)[0];
-                string[] one =new string[correct.Length];
-                one[0] = correct[0];
-
-                for (int i = 1, n = 1; i < correct.Length; i++)
+                if (correct.Length==0) return new (string, double)[0];
+                string[] one =new string[0];
+                foreach(string x in correct)
                 {
-
-                    for (int j = 0; j < n; j++)
+                    if (!one.Contains(x))
                     {
-
-                        if (correct[i] == one[j])
-                        {
-                            Array.Resize(ref one, one.Length - 1);
-                            j = n;
-                        }
-                        else if (j == n - 1)
-                        {
-                            one[n] = correct[i];
-                            n++;
-                            break;
-                        }
-
+                        Array.Resize(ref one, one.Length+1);
+                        one[one.Length-1] = x;
                     }
                 }
                 int[] mas = new int[one.Length];
@@ -259,8 +244,10 @@ namespace Lab_7
                 (string, double)[] answer = new (string, double)[one.Length];
                 for(int i=0;i < answer.Length; i++)
                 {
-                    answer[i] = (one[i], (mas[i]/sum)*100);
+                    answer[i] = (one[i], (mas[i]*100.0/sum);
+                    Console.WriteLine((mas[i] / sum) * 100);
                 }
+              
                 return answer;
             }
             private string Geta1(Response a, int question)
